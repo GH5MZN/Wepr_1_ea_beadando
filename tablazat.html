@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD - Web-programozás-1 Előadás Házi feladat</title>
+    <link rel="stylesheet" href="style_table.css">
+</head>
+<body>
+    <header>
+        <h1>CRUD Táblázat</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Főoldal</a></li>
+            <li><a href="tablazat.html" class="active">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+    <div span id="tableHeader">
+        <p>Ez a <span id="crud">CRUD</span> táblázat oldala.<br></p>
+        </div>
+    <div class="content">
+        <input type="text" id="searchInput" placeholder="Keresés..." onkeyup="filterTable()">
+        <table span id="crudTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Név (3-20)</th>
+                    <th onclick="sortTable(1)">Kor (18-99)</th>
+                    <th onclick="sortTable(2)">Email</th>
+                    <th onclick="sortTable(3)">Város (3-30)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 20)"onblur="setPlaceholder(this, 'Írj egy nevet!')" data-placeholder="Írj egy nevet!">Írj egy nevet!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'number', 18, 99)"onblur="setPlaceholder(this, 'Írj egy kort!')" data-placeholder="Írj egy kort!">Írj egy kort!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'email')"onblur="setPlaceholder(this, 'Írj egy emailt!')" data-placeholder="Írj egy emailt!">Írj egy emailt!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 30)"onblur="setPlaceholder(this, 'Írj egy várost!')" data-placeholder="Írj egy várost!">Írj egy várost!</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 20)"onblur="setPlaceholder(this, 'Írj egy nevet!')" data-placeholder="Írj egy nevet!">Írj egy nevet!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'number', 18, 99)"onblur="setPlaceholder(this, 'Írj egy kort!')" data-placeholder="Írj egy kort!">Írj egy kort!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'email')"onblur="setPlaceholder(this, 'Írj egy emailt!')" data-placeholder="Írj egy emailt!">Írj egy emailt!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 30)"onblur="setPlaceholder(this, 'Írj egy várost!')" data-placeholder="Írj egy várost!">Írj egy várost!</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 20)"onblur="setPlaceholder(this, 'Írj egy nevet!')" data-placeholder="Írj egy nevet!">Írj egy nevet!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'number', 18, 99)"onblur="setPlaceholder(this, 'Írj egy kort!')" data-placeholder="Írj egy kort!">Írj egy kort!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'email')"onblur="setPlaceholder(this, 'Írj egy emailt!')" data-placeholder="Írj egy emailt!">Írj egy emailt!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 30)"onblur="setPlaceholder(this, 'Írj egy várost!')" data-placeholder="Írj egy várost!">Írj egy várost!</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 20)"onblur="setPlaceholder(this, 'Írj egy nevet!')" data-placeholder="Írj egy nevet!">Írj egy nevet!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'number', 18, 99)"onblur="setPlaceholder(this, 'Írj egy kort!')" data-placeholder="Írj egy kort!">Írj egy kort!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'email')"onblur="setPlaceholder(this, 'Írj egy emailt!')" data-placeholder="Írj egy emailt!">Írj egy emailt!</td>
+                    <td contenteditable="true" onfocus="clearPlaceholder(this)" oninput="validateCell(this, 'text', 3, 30)"onblur="setPlaceholder(this, 'Írj egy várost!')" data-placeholder="Írj egy várost!">Írj egy várost!</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <script>
+    // Placeholder törlése
+    function clearPlaceholder(cell) {
+    if (cell.textContent.trim() === cell.getAttribute("data-placeholder")) {
+        cell.textContent = ""; // Törli a placeholder szöveget
+        cell.style.color = ""; // Alapértelmezett szín
+    }
+}
+    // Placeholder beállítása
+function setPlaceholder(cell, placeholder) {
+    if (cell.textContent.trim() === "") {
+        cell.textContent = placeholder; // Visszaállítja a placeholder szöveget
+        cell.style.color = "gray"; // Szürke szín a placeholderhez
+    }
+}
+
+            // Szűrés
+            function filterTable() {
+    const input = document.getElementById("searchInput").value.toLowerCase(); // Keresési szöveg
+    const rows = document.querySelectorAll("#crudTable tbody tr"); // Táblázat sorai
+
+    rows.forEach(row => {
+        const cells = row.querySelectorAll("td"); // Sor cellái
+        const match = Array.from(cells).some(cell => 
+            cell.textContent.toLowerCase().includes(input) // Ellenőrzi, hogy a cella tartalmazza-e a keresett szöveget
+        );
+        row.style.display = match ? "" : "none"; // Megjeleníti vagy elrejti a sort
+    });
+}
+
+    // Rendezés
+    function sortTable(columnIndex) {
+        const table = document.getElementById("crudTable");
+        const rows = Array.from(table.rows).slice(1);
+        const isAscending = table.getAttribute("data-sort-order") !== "asc";
+        rows.sort((a, b) => {
+            const cellA = a.cells[columnIndex].textContent.trim();
+            const cellB = b.cells[columnIndex].textContent.trim();
+            return isAscending
+                ? cellA.localeCompare(cellB, undefined, { numeric: true })
+                : cellB.localeCompare(cellA, undefined, { numeric: true });
+        });
+        rows.forEach(row => table.tBodies[0].appendChild(row));
+        table.setAttribute("data-sort-order", isAscending ? "asc" : "desc");
+    }
+
+    // Validáció funkció
+    function validateCell(cell, type, min = null, max = null) {
+        const value = cell.textContent.trim();
+        let isValid = true;
+
+        if (type === "text") {
+            isValid = value.length >= min && value.length <= max;
+        } else if (type === "number") {
+            const num = parseInt(value, 10);
+            isValid = !isNaN(num) && num >= min && num <= max;
+        } else if (type === "email") {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            isValid = emailRegex.test(value);
+        }
+
+        cell.style.backgroundColor = isValid ? "" : "red";
+    }
+</script>
+
+
+    <footer>
+        <p>Készítette: Jagicza Bence, Neptun kód: GH5MZN</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    padding: 0;
+    color:rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0);
+}
+
+header {
+    background-color: #0ebddb;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+aside {
+    background-color: #00ff2a;
+    padding: 10px;
+    margin: 20px;
+    width: 10%;
+    float: left;
+}
+nav ul li a:hover, .active {
+    background-color: #1100ff;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    clear: both;
+}
+#crud {
+   font-weight: bold;
+   color: darkred;
+   font-size: 52px;
+ ;
+}
+
+#tableHeader {
+    background-color: aqua;
+    margin: 50px;
+    text-align: center;
+    font-size: 50px;
+}
+
+.content {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#crudTable {
+    width: 65%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: center;
+    background-color: aqua;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+#crudTable th, #crudTable td {
+    border: 2px solid black; /* Cellák közötti rács */
+    padding: 10px; /* Cellák belső margója */
+}
+
+#search {
+    width: 25%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: #f4f4f4;
+    align-items: center;
+}
