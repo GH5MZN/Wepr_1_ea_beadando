@@ -20,13 +20,15 @@
             <li><a href="oojs.html">OOJS</a></li>
         </ul>
     </nav>
+
     <div class="content">
-        <h2>Web Storage</h2>
+
+
+    <h2>Web Storage</h2>
         <input type="text" id="nameInput" placeholder="Írd be a neved!">
         <button onclick="saveName()">Mentés</button>
         <button onclick="loadName()">Üdvözlés</button>
-        <p id="output"></p>
-    
+        <p id="storageOutput"></p>
         <script>
             function saveName() {
                 const name = document.getElementById("nameInput").value;
@@ -36,37 +38,133 @@
     
             function loadName() {
                 const name = localStorage.getItem("name");
-                document.getElementById("output").textContent = name ? `Üdv, ${name}!` : "Nincs elmentett név.";
+                document.getElementById("storageOutput").textContent = name ? `Üdv, ${name}!` : "Nincs elmentett név.";
             }
         </script>
-        <h2>Web Workers</h2>
-        <h2>Server-Sent Events</h2>
-        <H2>Geolocation API</H2>
+
+
+    <h2>Web Workers</h2>
+        <button onclick="startWorker()">Web Worker indítása</button>
+        <button onclick="stopWorker()">Web Worker leállítása</button>
+    <p id="workerOutput">Számolás eredménye: </p>
+    <script>
+        let worker;
+
+        function startWorker() {
+            if (typeof(Worker) !== "undefined") {
+                if (!worker) {
+                    worker = new Worker(URL.createObjectURL(new Blob([`
+                        let count = 0;
+                        let isRunning = true;
+
+                        function countNumbers() {
+                            if (isRunning) {
+                                count++;
+                                postMessage(count);
+                                setTimeout(countNumbers, 10);
+                            }
+                        }
+
+                        countNumbers();
+
+                        onmessage = function(event) {
+                            if (event.data === "stop") {
+                                isRunning = false;
+                            }
+                        };
+                    `], { type: 'application/javascript' })));
+
+                    worker.onmessage = function(event) {
+                        document.getElementById("workerOutput").textContent = `Számolás eredménye: ${event.data}`;
+                    };
+                }
+            } else {
+                document.getElementById("workerOutput").textContent = "A böngésződ nem támogatja a Web Workers-t.";
+            }
+        }
+
+        function stopWorker() {
+            if (worker) {
+                worker.postMessage("stop");
+                worker.terminate();
+                worker = null;
+                document.getElementById("workerOutput").textContent += " (Leállítva)";
+            }
+        }
+    </script>
+
+    <h2>Server-Sent Events</h2>
+    <div id="sseOutput">Várakozás a szerver üzenetére...</div>
+    <script>
+        if (typeof(EventSource) !== "undefined") {
+            const source = new EventSource("sse.php");
+            source.onmessage = function(event) {
+                document.getElementById("sseOutput").textContent = `Szerver ideje: ${event.data}`;
+            };
+        } else {
+            document.getElementById("sseOutput").textContent = "A böngésződ nem támogatja a Server-Sent Events-t.";
+        }
+    </script>
+
+    <H2>Geolocation API</H2>
         <button onclick="getLocation()">Itt vagyok!</button>
-        <p id="output"></p>
+        <p id="locationOutput"></p>
     
         <script>
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition, showError);
                 } else {
-                    document.getElementById("output").textContent = "A böngésződ nem támogatja a Geolocation API-t.";
+                    document.getElementById("locationOutput").textContent = "A böngésződ nem támogatja a Geolocation API-t.";
                 }
             }
     
             function showPosition(position) {
-                document.getElementById("output").textContent = `Szélesség: ${position.coords.latitude}, Hosszúság: ${position.coords.longitude}`;
+                document.getElementById("locationOutput").textContent = `Szélesség: ${position.coords.latitude}, Hosszúság: ${position.coords.longitude}`;
             }
     
             function showError(error) {
-                document.getElementById("output").textContent = `Hiba: ${error.message}`;
+                document.getElementById("locationOutput").textContent = `Hiba: ${error.message}`;
             }
         </script>
-        <h2>Drag and drop API</h2>
-        <h2>Canvas</h2>
-        <canvas id="myCanvas" width="400" height="200" style="border:1px solid black;"></canvas>
 
-    <script>
+
+
+    <h2>Drag and drop API</h2>
+    <body>
+        <p>Húzd a képet a mezőbe!</p>
+    
+        <div id="dragItem" draggable="true" ondragstart="drag(event)"></div>
+        <div id="dropZone" ondragover="allowDrop(event)" ondrop="drop(event)">Dobd ide!</div>
+    
+        <script>
+            function allowDrop(event) {
+                event.preventDefault();             }
+    
+            function drag(event) {
+                event.dataTransfer.setData("text", event.target.id); 
+            }
+    
+            function drop(event) {
+    event.preventDefault();
+    const draggedElement = document.getElementById("dragItem");
+    const dropZone = event.target;
+
+    if (dropZone.id === "dropZone" && !dropZone.classList.contains("completed")) {
+        dropZone.textContent = ""; //Dobd ide törlése
+        dropZone.appendChild(draggedElement);
+        dropZone.classList.add("completed");
+        const message = document.createElement("p");
+        message.textContent = "Kellemes Húsvéti Ünnepeket!";//győztes szöveg
+        dropZone.appendChild(message);
+    }
+}
+        </script>
+
+
+    <h2>Canvas</h2>
+        <canvas id="myCanvas" width="400" height="200" style="border:1px solid black;"></canvas>
+        <script>
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
 
@@ -77,8 +175,25 @@
         ctx.arc(200, 100, 50, 0, 2 * Math.PI);
         ctx.fillStyle = "red";
         ctx.fill();
+        </script>
+
+    <h2>SVG2</h2>
+    <p>Kattints a körre a szín megváltoztatásához!</p>
+    <svg width="400" height="200" style="border:1px solid black; background-color: white;">
+        <circle cx="200" cy="100" r="50" fill="blue" onclick="changeColor(this)" />
+    </svg>
+    
+    <script>
+        function changeColor(element) {
+            const colors = ["blue", "red", "green", "yellow", "purple", "black", "orange", "pink"];
+            const currentColor = element.getAttribute("fill");
+            const nextColor = colors[(colors.indexOf(currentColor) + 1) % colors.length];
+            element.setAttribute("fill", nextColor);
+        }
     </script>
-        <h2>SVG2</h2>
+
+
+
     </div>
     <footer>
         <p>Készítette: Jagicza Bence István, Neptun kód: GH5MZN</p>

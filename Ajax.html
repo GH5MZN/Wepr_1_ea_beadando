@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX - Web-programozás-1 Előadás Házi feladat</title>
+    <link rel="stylesheet" href="style_ajax.css">
+    <script src="ajax.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>AJAX CRUD Alkalmazás</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html" >Főoldal</a></li>
+            <li><a href="tablazat.html">Táblázat</a></li>
+            <li><a href="html5.html">HTML5</a></li>
+            <li><a href="chartjs.html">ChartJS</a></li>
+            <li><a href="ajax.html" class="active">AJAX</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+     <div class="content">
+    </header>
+    <div class="content">
+        <h2>Adatok lekérdezése</h2>
+        <button id="readButton">Adatok lekérdezése</button>
+        <div id="dataOutput"></div>
+
+        <h2>Új rekord létrehozása</h2>
+        <form id="createForm">
+            <input type="text" id="createName" placeholder="Név (max 30 karakter)" maxlength="30" required>
+            <input type="text" id="createHeight" placeholder="Magasság (cm)" maxlength="30" required>
+            <input type="text" id="createWeight" placeholder="Súly (kg)" maxlength="30" required>
+            <button type="submit">Rekord létrehozása</button>
+        </form>
+
+        <h2>Rekord módosítása</h2>
+        <form id="updateForm">
+            <input type="text" id="updateId" placeholder="ID" required>
+            <button type="button" id="getDataForId">Adatok betöltése</button>
+            <input type="text" id="updateName" placeholder="Név (max 30 karakter)" maxlength="30" required>
+            <input type="text" id="updateHeight" placeholder="Magasság (cm)" maxlength="30" required>
+            <input type="text" id="updateWeight" placeholder="Súly (kg)" maxlength="30" required>
+            <button type="submit">Rekord módosítása</button>
+        </form>
+
+        <h2>Rekord törlése</h2>
+        <form id="deleteForm">
+            <input type="text" id="deleteId" placeholder="ID" required>
+            <button type="submit">Rekord törlése</button>
+        </form>
+        
+    </div>
+    <footer>
+        <p>Készítette: Jagicza Bence István, Neptun kód: GH5MZN</p>
+    </footer>
+</body>
+</html>

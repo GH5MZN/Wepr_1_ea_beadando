@@ -34,13 +34,7 @@ nav ul li a {
     text-decoration: none;
     transition: background-color 0.3s;
 }
-aside {
-    background-color: #00ff2a;
-    padding: 10px;
-    margin: 20px;
-    width: 10%;
-    float: left;
-}
+
 nav ul li a:hover, .active {
     background-color: #1100ff;
     font-weight: bold;

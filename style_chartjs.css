@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #e5ff00;
+    background-color: #ff0000;
     color: rgb(0, 0, 0);
     text-align: center;
     padding: 10px 0;
@@ -34,7 +34,6 @@ nav ul li a {
     text-decoration: none;
     transition: background-color 0.3s;
 }
-
 nav ul li a:hover, .active {
     background-color: #1100ff;
     font-weight: bold;
@@ -50,36 +49,11 @@ footer {
 .content {
     margin:20px;
     padding: 20px;  
-    background-color: #e5ff00;
-    width: 100%;
+    background-color: #ff0000;
+    width: 95%;
     text-align: center;
-    float: right;
-    border-radius: 10px;
+   
 }
-
-#dragItem {
-    width: 84px;
-    height: 97px;
-    background-image: url('https://www.pngfind.com/pngs/m/51-511840_babby-rabbit-png-baby-rabbit-png-transparent-png.png');
-    background-size: cover;
-    cursor: grab;
-    display: inline-block;
-}
-
-#dropZone {
-    width: 300px;
-    height: 300px;
-    border: 2px dashed #000;
-    margin-top: 20px;
-    display: inline-block;
-    line-height: 150px;
-    text-align: center;
-    font-size: 16px;
-    color: #555;
-}
-
-#dropZone.completed {
-    border-color: green;
-    background-color: #e0ffe0;
-    color: green;
+.index {
+    width: 5%;
 }
