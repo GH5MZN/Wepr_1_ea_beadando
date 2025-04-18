@@ -31,13 +31,13 @@
         <p id="storageOutput"></p>
         <script>
             function saveName() {
-                const name = document.getElementById("nameInput").value;
+                let name = document.getElementById("nameInput").value;
                 localStorage.setItem("name", name);
                 alert("Név elmentve!");
             }
     
             function loadName() {
-                const name = localStorage.getItem("name");
+                let name = localStorage.getItem("name");
                 document.getElementById("storageOutput").textContent = name ? `Üdv, ${name}!` : "Nincs elmentett név.";
             }
         </script>
@@ -134,7 +134,8 @@
     <body>
         <p>Húzd a képet a mezőbe!</p>
     
-        <div id="dragItem" draggable="true" ondragstart="drag(event)"></div>
+        <div id="dragItem" draggable="true" ondragstart="drag(event)">
+        </div>
         <div id="dropZone" ondragover="allowDrop(event)" ondrop="drop(event)">Dobd ide!</div>
     
         <script>

@@ -67,25 +67,25 @@
     function clearPlaceholder(cell) {
     if (cell.textContent.trim() === cell.getAttribute("data-placeholder")) {
         cell.textContent = ""; // Törli a placeholder szöveget
-        cell.style.color = ""; // Alapértelmezett szín
+        cell.style.color = ""; // Alapértelmezett színre áll vissza
     }
 }
     // Placeholder beállítása
 function setPlaceholder(cell, placeholder) {
     if (cell.textContent.trim() === "") {
         cell.textContent = placeholder; // Visszaállítja a placeholder szöveget
-        cell.style.color = "gray"; // Szürke szín a placeholderhez
+        cell.style.color = "gray"; // Szürke szín a placeholderszöveghez ha inaktív
     }
 }
 
             // Szűrés
             function filterTable() {
-    const input = document.getElementById("searchInput").value.toLowerCase(); // Keresési szöveg
-    const rows = document.querySelectorAll("#crudTable tbody tr"); // Táblázat sorai
+    let input = document.getElementById("searchInput").value.toLowerCase(); // Keresési szöveg
+    let rows = document.querySelectorAll("#crudTable tbody tr"); // Táblázat sorai
 
     rows.forEach(row => {
-        const cells = row.querySelectorAll("td"); // Sor cellái
-        const match = Array.from(cells).some(cell => 
+        let cells = row.querySelectorAll("td"); 
+        let match = Array.from(cells).some(cell => 
             cell.textContent.toLowerCase().includes(input) // Ellenőrzi, hogy a cella tartalmazza-e a keresett szöveget
         );
         row.style.display = match ? "" : "none"; // Megjeleníti vagy elrejti a sort
@@ -94,9 +94,9 @@ function setPlaceholder(cell, placeholder) {
 
     // Rendezés
     function sortTable(columnIndex) {
-        const table = document.getElementById("crudTable");
-        const rows = Array.from(table.rows).slice(1);
-        const isAscending = table.getAttribute("data-sort-order") !== "asc";
+        let table = document.getElementById("crudTable");
+        let rows = Array.from(table.rows).slice(1);
+        let isAscending = table.getAttribute("data-sort-order") !== "asc";
         rows.sort((a, b) => {
             const cellA = a.cells[columnIndex].textContent.trim();
             const cellB = b.cells[columnIndex].textContent.trim();
@@ -108,7 +108,7 @@ function setPlaceholder(cell, placeholder) {
         table.setAttribute("data-sort-order", isAscending ? "asc" : "desc");
     }
 
-    // Validáció funkció
+    // Validáció
     function validateCell(cell, type, min = null, max = null) {
         const value = cell.textContent.trim();
         let isValid = true;
